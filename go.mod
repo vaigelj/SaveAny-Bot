@@ -73,6 +73,3 @@ require (
 	modernc.org/memory v1.8.0 // indirect
 	modernc.org/sqlite v1.33.1 // indirect
 )
-
-// personal fork - using my own module path for local development
-replace github.com/krau/SaveAny-Bot => ./
