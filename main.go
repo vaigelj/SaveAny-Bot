@@ -40,9 +40,11 @@ func main() {
 	}
 
 	// Wait for termination signal
+	// Also handle SIGHUP so the process can be gracefully stopped by some process managers
 	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
+	sig := <-quit
+	logger.L.Infof("Received signal: %s", sig)
 
 	logger.L.Info("Shutting down SaveAny-Bot...")
 	cancel()
