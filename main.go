@@ -41,8 +41,9 @@ func main() {
 
 	// Wait for termination signal
 	// Also handle SIGHUP so the process can be gracefully stopped by some process managers
+	// Note: SIGUSR1 is also watched here to allow manual reload triggers in my setup
 	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGHUP, syscall.SIGUSR1)
 	sig := <-quit
 	logger.L.Infof("Received signal: %s", sig)
 
